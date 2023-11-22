@@ -21,7 +21,7 @@
 
        	  		<div class="card-front">
        	  		   <h2> CONNEXION </h2>
-       	  		   <form action="connect.php" method="post">
+       	  		   <form action="connexion.php" method="post">
                      <input type="email" class="input-box" placeholder="Entrez votre email" name="email" required>
                      <input type="password" class="input-box" placeholder="Entrez votre mot de passe" name="password" required>
                      <button type="submit" class="submit-btn" name="submit">Se connecter</button>
@@ -31,7 +31,7 @@
              
        	  		<div class="card-back">
                     <h2> INSCRIPTION </h2>
-       	  		    <form action="connect2.php" method="post">
+       	  		    <form action="inscription.php" method="post">
                      <input type="text" class="input-box" placeholder="Entrez votre nom et votre prénom" name="nomprenom" required>
                      <input type="text" class="input-box" placeholder="Entrez votre adresse" name="adresse" required>
                       <input type="tel" class="input-box" placeholder="Entrez votre numéro de téléphone" name="tel" required>
