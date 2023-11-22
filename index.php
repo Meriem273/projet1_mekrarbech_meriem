@@ -1,7 +1,7 @@
 <html>
 <head>
    <title> Acceuil</title>
-   <link rel="stylesheet" href="k2.css">
+   <link rel="stylesheet" href="style.css">
    <script src="https://kit.fontawesome.com/3ad2fd06ba.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -10,16 +10,16 @@
 		<div class="nav-area">
 			<div class="logo">BeauteM</div>
 			<ul class="menu-area">
-				<li><a href="k.html">Acceuil</a></li>
-        <li><a href="Form.html">Connexion/Inscription </a></li>
-        <li><a href="Contact.html">Contactez-nous </a></li>   
+				<li><a href="index.php">Acceuil</a></li>
+        <li><a href="form.php">Connexion/Inscription </a></li>
+        <li><a href="contact.php">Contactez-nous </a></li>   
             </ul>
         </div>
 
         <div class="banner-text">
         	<h2> Envie de connaitre les meilleurs produits chez BeauteM ? </h2>
         	<h3> Achetez chez nous !</h3>
-        	<p>C'est en nous basant sur vos remarques que nous travaillons jour après jour à l’amélioration de votre expérience chez SEPHORAMOSTA !<br><br>C'est pour cela que nous avons mis ce sondage à votre disposition .</p>
+        	<p>C'est pour cela que nous avons mis ce site à votre disposition .</p>
         	<a href="Form.html">ACHETEZ</a>
 </header>
  
