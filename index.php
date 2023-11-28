@@ -20,7 +20,7 @@
         	<h2> Envie de connaitre les meilleurs produits chez BeauteM ? </h2>
         	<h3> Achetez chez nous !</h3>
         	<p>C'est pour cela que nous avons mis ce site à votre disposition .</p>
-        	<a href="Form.html">ACHETEZ</a>
+        	<a href="form.php">ACHETEZ</a>
 </header>
  
  <div class="site-section">
@@ -38,7 +38,7 @@
  		<h4> BURBERRY </h4>
  		<p> Eau De Parfum 35 ml</p>
         <h5> A Partir De 200$ </h5>
-
+        <a href="form.php">ACHETEZ</a>
  	</div>
 
 
@@ -48,7 +48,7 @@
  		<h4> CHANEL N°5 </h4>
  		<p> Eau De Parfum 35 ml </p>
         <h5> A Partir De 300$ </h5>
-
+        <a href="form.php">ACHETEZ</a>
  	</div>
 
 
@@ -58,7 +58,7 @@
  		<h4> DIOR SAUVAGE </h4>
  		<p> Eau De Parfum  60 ml</p>
         <h5> A Partir De 250$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
  	</div>
 
     <div class="feature-box">
@@ -67,7 +67,7 @@
         <h4> GUCCI INTENSE OUD </h4>
         <p> Eau De Parfum Homme 90 ml</p>
         <h5> A Partir De 350$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
     </div>
 
     <div class="feature-box">
@@ -76,7 +76,7 @@
         <h4> LANCOME LA NUIT TRÉSOR </h4>
         <p> Eau De Parfum  50 ml</p>
         <h5> A Partir 280$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
     </div>
 
 
@@ -86,7 +86,7 @@
         <h4> YVES SAINT LAURENT BLACK OPIUM </h4>
         <p> Eau de Parfum  90 ml</p>
         <h5> A Partir De 300$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
     </div>
      <div class="site-section-inside">
 
@@ -104,7 +104,7 @@
         <h4> CHARLOTTE TILBURY </h4>
         <p> Matte revolution Rouge à lèvres </p>
         <h5> A Partir De 80$ </h5>
-
+        <a href="form.php">ACHETEZ</a>
     </div>
 
 
@@ -114,7 +114,7 @@
         <h4> CHANEL </h4>
         <p> Fond De Teint Les BEIGES Teint Belle Mine Naturelle Hydratation Et Longue Tenue </p>
         <h5> A Partir De 120$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
     </div>
 
     <div class="feature-box">
@@ -123,7 +123,7 @@
         <h4> HUDA BEAUTY </h4>
         <p> la Palette Naughty Nude </p>
         <h5> A Partir De 60$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
     </div>
 
     <div class="site-section-inside">
@@ -140,7 +140,7 @@
         <h4> KERASTASE </h4>
         <p> La Gamme complète</p>
         <h5> A Partir De 150$ </h5>
-
+        <a href="form.php">ACHETEZ</a>
     </div>
 
 
@@ -151,7 +151,7 @@
         <h4> OLAPLEX </h4>
         <p> Soin Capillaire NO.3 Hair Perfector </p>
         <h5> A Partir De 90$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
     </div>
 
     <div class="feature-box">
@@ -160,7 +160,7 @@
         <h4> BEAUTEM COLLECTION </h4>
         <p> Gommage Lavant Cheveux Menthe Poivrée (100g) </p>
         <h5> A Partir De 65$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
     </div>
 
      <div class="site-section-inside">
@@ -168,7 +168,7 @@
         <div class="section-header">
         <h2> Nos Soins Corps Et Visages  </h2>
         </div>
-
+        <a href="form.php">ACHETEZ</a>
     </div>
 
     <div class="feature-box">
@@ -177,7 +177,7 @@
         <h4> CLARINS  </h4>
         <p> Crème Eclat Du Jour 30 ml  </p>
         <h5> A Partir De 50$ </h5>
-
+        <a href="form.php">ACHETEZ</a>
     </div>
 
 
@@ -187,7 +187,7 @@
         <h4> BEAUTEM COLLECTION </h4>
         <p> Gamme Bain</p>
         <h5> A Partir De 40$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
     </div>
 
     <div class="feature-box">
@@ -196,7 +196,7 @@
         <h4> NUXE </h4>
         <p> Gel Nettoyant et Démaquillant Visage Rêve de Miel 400 ml </p>
         <h5> A Partir De 65$ </h5>
-        
+        <a href="form.php">ACHETEZ</a>
     </div>
 
  </div>

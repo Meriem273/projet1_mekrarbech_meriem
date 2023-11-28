@@ -32,9 +32,7 @@
        	  		<div class="card-back">
                     <h2> INSCRIPTION </h2>
        	  		    <form action="inscription.php" method="post">
-                     <input type="text" class="input-box" placeholder="Entrez votre nom et votre prénom" name="nomprenom" required>
-                     <input type="text" class="input-box" placeholder="Entrez votre adresse" name="adresse" required>
-                      <input type="tel" class="input-box" placeholder="Entrez votre numéro de téléphone" name="tel" required>
+                     <input type="text" class="input-box" placeholder="Entrez votre nom et votre prénom" name="user_name" required>
                       <input type="email" class="input-box" placeholder="Entrez votre email" name="email" required>
                       <input type="password" class="input-box" placeholder="Entrez votre mot de passe" name="password" required>
                       <button type="submit" class="submit-btn" name="s">S'inscrire</button>
