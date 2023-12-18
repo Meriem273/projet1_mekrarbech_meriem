@@ -7,16 +7,8 @@ if (isset($_POST['s'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
         
+        if(!connexionDB()){
 
-        $host = "localhost";
-        $dbUsername = "root";
-        $dbPassword = "";
-        $dbName = "ecom1_projet";
-
-        $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
-
-        if ($conn->connect_error) {
-            die('Pas de connexion dans la base de données');
         }
         else {
             $Select = "SELECT email FROM inscription WHERE email = ? LIMIT 1";

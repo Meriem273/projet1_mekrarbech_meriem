@@ -1,7 +1,29 @@
+<?php
+if (isset($_POST['submit'])) {
+    $email = $_POST['email'];
+    $mot_de_passe = $_POST['password'];
+    if (!empty($email) && !empty($mot_de_passe)) {
+        authentification($email, $mot_de_passe);
+    }
+}
+
+
+if (isset($_POST['register'])) {
+    $nom = $_POST['user_name'];
+    $email = $_POST['email'];
+    $mot_de_passe = $_POST['password'];
+    $c_mot_de_passe = $_POST['c-mot_de_passe'];
+    if (!empty($nom) && !empty($email) && !empty($mot_de_passe) && !empty($c_mot_de_passe)) {
+        if ($mot_de_passe === $c_mot_de_passe) {
+            register($nom, $email, $mot_de_passe);
+        }
+    }
+}
+?>
 <html>
 <head>
    <title> Formulaire </title>
-   <link rel="stylesheet" href="form.css">
+   <link rel="stylesheet" href="./css/form.css">
    <script src="https://kit.fontawesome.com/3ad2fd06ba.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -9,9 +31,9 @@
 	    <div class="nav-area">
 			<div class="logo">BeautéM</div>
 			<ul class="menu-area">
-				<li><a href="index.php">Acceuil</a></li>
+				<li><a href="profil.php">Mon profil</a></li>
                 <li><a href="form.php">Connexion/Inscription </a></li>
-                <li><a href="commandes.php">Panier </a></li>   
+                <li><a href="commandes.php">Mon panier </a></li>   
             </ul>
         </div> 
         
@@ -24,7 +46,7 @@
        	  		   <form action="connexion.php" method="post">
                      <input type="email" class="input-box" placeholder="Entrez votre email" name="email" required>
                      <input type="password" class="input-box" placeholder="Entrez votre mot de passe" name="password" required>
-                     <button type="submit" class="submit-btn" name="submit">Se connecter</button>
+                     <button type="submit" class="submit-btn" name="submit">Se connecter<a href="produits.php"></a></button>
        	  		   </form>
        	  		   <button type="button" class="btn" onclick="openINSCRIPTION()">Je suis nouveau ici</button>
        	        </div>
@@ -35,7 +57,7 @@
                      <input type="text" class="input-box" placeholder="Entrez votre nom et votre prénom" name="user_name" required>
                       <input type="email" class="input-box" placeholder="Entrez votre email" name="email" required>
                       <input type="password" class="input-box" placeholder="Entrez votre mot de passe" name="password" required>
-                      <button type="submit" class="submit-btn" name="s">S'inscrire</button>
+                      <button type="submit" class="submit-btn" name="register">S'inscrire</button>
        	  		   </form>
        	  		   <button type="button" class="btn" onclick="openCONNEXION()">J'ai un compte</button>
           	    </div>
