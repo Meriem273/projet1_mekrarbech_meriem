@@ -33,13 +33,10 @@ function authentification($email, $mot_de_passe)
     if ($utilisateur->num_rows >= 1) {
         $utilisateur = $utilisateur->fetch_assoc();
         if (password_verify($mot_de_passe, $utilisateur['pwd'])) {
-            $_SESSION['utilisateur'] = $utilisateur['id'];
+            $_SESSION['user'] = $utilisateur['id'];
             $_SESSION['user_id'] = $utilisateur['id'];
-            $_SESSION['utilisateur_nom'] = $utilisateur['nom'];
-            $_SESSION['utilisateur_add'] = $utilisateur['addresse'];
-            $_SESSION['utilisateur_email'] = $utilisateur['email'];
-            $_SESSION['utilisateur_pscode'] = $utilisateur['postal_code'];
-            $_SESSION['utilisateur_prenom'] = $utilisateur['prenom'];
+            $_SESSION['user_name'] = $utilisateur['nom'];
+            $_SESSION['email'] = $utilisateur['email'];
             $_SESSION['roleU'] = $utilisateur['roleU'];
             header('Location: ./index.php');
         } else {
