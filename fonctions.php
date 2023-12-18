@@ -37,7 +37,7 @@ function authentification($email, $mot_de_passe)
             $_SESSION['user_id'] = $utilisateur['id'];
             $_SESSION['user_name'] = $utilisateur['nom'];
             $_SESSION['email'] = $utilisateur['email'];
-            $_SESSION['roleU'] = $utilisateur['roleU'];
+            $_SESSION['role_id'] = $utilisateur['role_id'];
             header('Location: ./index.php');
         } else {
             echo "Email ou mot de passe incorrect.";
