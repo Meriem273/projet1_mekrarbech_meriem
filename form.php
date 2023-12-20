@@ -6,9 +6,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$password = $_POST['password'];
 		if (!empty($user_name) && !empty($password)) {
 			authentification($user_name, $password);
-		}else {
-		header("Location: index.php");
-		exit();
+		} else {
+			header("Location: index.php");
+			exit();
 		}
 	}
 	if (isset($_POST['register'])) {
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$country = $_POST['country'];
 		if (!empty($user_name) && !empty($email) && !empty($pwd) && !empty($street_name) && !empty($street_nb) && !empty($city) && !empty($province) && !empty($zip_code) && !empty($country)) {
 			$result = register($user_name, $email, $pwd, $street_name, $street_nb, $city, $province, $zip_code, $country);
-		}else {
+		} else {
 			header("Location: index.php");
 			exit();
 		}
@@ -45,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<ul class="menu-area">
 			<li><a href="index.php">Acceuil</a></li>
 			<li><a href="form.php">Connexion/Inscription </a></li>
-			<li><a href="commandes.php">Mon panier </a></li>
 		</ul>
 	</div>
 

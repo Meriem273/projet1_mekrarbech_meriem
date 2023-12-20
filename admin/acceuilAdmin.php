@@ -31,8 +31,9 @@ if ($user_role != 1) {
 		<ul class="menu-area">
 			<li><a href="index.php">Acceuil</a></li>
 			<li><a href="ajouterProduit.php">Ajouter produit </a></li>
-			<li><a href="users.php">Utilisateurs</a></li>
-            <li><a href="commandes.php">Commandes </a></li>
+            <li><a href="supprimerProduit.php">Supprimer produit </a></li>
+			<li><a href="supprimerUtilisateur.php">Supprimer utilisateur</a></li>
+            <li><a href="supprimerCommande.php">Supprimer commande </a></li>
             <li><a href="logout.php">Se déconnecter </a></li>
 		</ul>
 	</div>

@@ -1,5 +1,4 @@
 <?php
-
 //fonction de connexion a la DB
 function connexionDB()
 {
@@ -19,7 +18,7 @@ function connexionDB()
 function authentification($user_name, $password)
 {
     $conn = connexionDB();
-    
+
     $sql = "SELECT * FROM `user` WHERE `user_name` = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, 's', $user_name);
@@ -47,19 +46,21 @@ function authentification($user_name, $password)
         }
     }
 }
-function register($user_name, $email, $pwd,$street_name, $street_nb, $city, $province, $zip_code, $country)
+
+//fonction qui inscrit un nouvel utilisateur
+function register($user_name, $email, $pwd, $street_name, $street_nb, $city, $province, $zip_code, $country)
 {
-    $conn = connexionDB(); 
-    
+    $conn = connexionDB();
+
     $user_name = $_POST['user_name'];
-	$email = $_POST['email'];
-	$pwd = $_POST['pwd'];
-	$street_name = $_POST['street_name'];
-	$street_nb = $_POST['street_nb'];
-	$city = $_POST['city'];
-	$province = $_POST['province'];
-	$zip_code = $_POST['zip_code'];
-	$country = $_POST['country'];
+    $email = $_POST['email'];
+    $pwd = $_POST['pwd'];
+    $street_name = $_POST['street_name'];
+    $street_nb = $_POST['street_nb'];
+    $city = $_POST['city'];
+    $province = $_POST['province'];
+    $zip_code = $_POST['zip_code'];
+    $country = $_POST['country'];
 
     $hashed_password = password_hash($pwd, PASSWORD_DEFAULT);
 
@@ -75,7 +76,7 @@ function register($user_name, $email, $pwd,$street_name, $street_nb, $city, $pro
                         VALUES ('$street_name', '$street_nb', '$city', '$province', '$zip_code', '$country')";
 
         if (mysqli_query($conn, $sql_address)) {
-            
+
             $address_id = mysqli_insert_id($conn);
 
             // updating la table user avec l id 
@@ -85,15 +86,11 @@ function register($user_name, $email, $pwd,$street_name, $street_nb, $city, $pro
             if (mysqli_query($conn, $sql_update_user)) {
                 header("Location: profil.php");
             } else {
-                echo "Error" . mysqli_error($conn);
+                echo "Error" ;
             }
-        } else {
-            echo "Error" . mysqli_error($conn);
         }
-    } 
-} 
-
-
+    }
+}
 
 
 //fonction qui modifie le mot de passe
@@ -143,7 +140,7 @@ function getUserById($id)
 
 
 //Fonction qui supprime un utilisateur en utilisant l'id
-function deleteUser($id)
+function deleteUserByid($id)
 {
     $conn = connexionDB();
     $user = getUserById($id);
@@ -165,16 +162,18 @@ function deleteUser($id)
 
 
 //fonction ajouter produit
-function addProduct($name, $price, $quantity){
+function addProduct($name, $quantity, $price, $description)
+{
     $conn = connexionDB();
-    $sql = "Insert into product (name, price, quantity) values (?,?,?)";
+    $sql = "INSERT INTO product (name, price, quantity, description) values (?,?,?,?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sii", $name, $price, $quantity);
+    $stmt->bind_param("siis", $name, $price, $quantity,$description);
     $result = $stmt->execute();
     $stmt->close();
     $conn->close();
     if ($result) {
-        echo "Ajout fait"; 
+        echo "Ajout fait";
+        header("Location: ./admin/acceuilAdmin.php");
         exit();
     } else {
         echo "Erreur durant l'ajout du produit";
@@ -188,7 +187,7 @@ function addProduct($name, $price, $quantity){
 function getProductById($id)
 {
     $conn = connexionDB();
-    $sql = "SELECT id, name , quantity , price , description FROM product ";
+    $sql = "SELECT id, name, quantity, price, description FROM product ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
@@ -204,7 +203,7 @@ function deleteProductById($id)
     $conn = connexionDB();
     $product = getProductById($id);
     if ($product) {
-        $sql = 'DELETE FROM product where id = ?';
+        $sql = "DELETE FROM product where id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $id);
         $result = $stmt->execute();
@@ -232,27 +231,12 @@ function addCommand($total)
 }
 
 
-//fonction qui recupere toutes les commandes
-function getAllCommands()
-{
-    $conn = connexionDB();
-    $sql = "SELECT * FROM user_order";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $resultats = $stmt->get_result();
-    $commands = array();
-    foreach ($resultats as $command) {
-        $commands[] = $command;
-    }
-    return $commands;
-}
-
 
 //fonction qui recupere une commande par son id
 function getCommandById($id)
 {
     $conn = connexionDB();
-    $sql = "SELECT * FROM order_has_product where order_id=?";
+    $sql = "SELECT * FROM user_order where id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
@@ -270,11 +254,10 @@ function getCommandById($id)
 function deleteCommandById($id)
 {
     $conn = connexionDB();
-
     $command = getCommandById($id);
     if ($command) {
 
-        $sql = 'DELETE FROM user_order where order_id = ?';
+        $sql = 'DELETE FROM user_order where id = ?';
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $id);
         $result = $stmt->execute();
@@ -286,7 +269,3 @@ function deleteCommandById($id)
         echo "Erreur durant la suppression";
     }
 }
-
-
-?>
-

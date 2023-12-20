@@ -1,21 +1,18 @@
 <?php
-    if(isset($_POST['save'])) {
-    $nom = $_POST['name'];
-    $prix = $_POST['price'];
-    $quantite = $_POST['quantity'];
-    $description = $_POST['description'];
-    if (empty($nom) || empty($prix) || empty($quantite) || empty($description)) {
-        echo "Faites rentrer toutes les infos";
-    } else {
-        addProduct($nom, $prix, $quantite, $description);
-    }
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['save'])) {
+        $orderId = $_POST['id'];
+        $ref = $_POST['ref'];
+        $date = $_POST['date'];
+        }
 }
 
 ?>
 <html>
 
 <head>
-    <title> produits</title>
+    <title>Produits</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://kit.fontawesome.com/3ad2fd06ba.js" crossorigin="anonymous"></script>
 </head>
@@ -35,7 +32,7 @@
             <h2> Envie de connaitre les meilleurs produits chez BeauteM ? </h2>
             <h3> Achetez chez nous !</h3>
             <p>C'est pour cela que nous avons mis ce site à votre disposition .</p>
-            
+
     </header>
 
     <div class="site-section">
