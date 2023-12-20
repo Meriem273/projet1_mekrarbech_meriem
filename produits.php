@@ -2,30 +2,12 @@
     if(isset($_POST['save'])) {
     $nom = $_POST['name'];
     $prix = $_POST['price'];
-    $taille = $_POST['size'];
-    $couleur = $_POST['colorr'];
-    $quantite = $_POST['quant'];
+    $quantite = $_POST['quantity'];
     $description = $_POST['description'];
-    if (empty($nom) || empty($prix) || empty($taille) || empty($couleur) || empty($quantite)) {
-        echo "Please fill all the fields";
+    if (empty($nom) || empty($prix) || empty($quantite) || empty($description)) {
+        echo "Faites rentrer toutes les infos";
     } else {
-        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
-            $image_name = $_FILES["image"]["name"];
-            $image_tmp = $_FILES["image"]["tmp_name"];
-            $image_destination = "images/" . basename($image_name);
-
-            $image_type = strtolower(pathinfo($image_destination, PATHINFO_EXTENSION));
-            if (!in_array($image_type, array("jpg", "jpeg", "png", "gif"))) {
-                echo "Only images with extension JPG, JPEG, PNG et GIF are allowed.";
-                exit();
-            }
-
-            if (move_uploaded_file($image_tmp, $image_destination)) {
-                addProduct($nom, $prix, $taille, $couleur, $quantite, $description, $image_destination);
-            }
-        } else {
-            addProduct($nom, $prix, $taille, $couleur, $quantite, $description);
-        }
+        addProduct($nom, $prix, $quantite, $description);
     }
 }
 
@@ -33,7 +15,7 @@
 <html>
 
 <head>
-    <title> Acceuil</title>
+    <title> produits</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://kit.fontawesome.com/3ad2fd06ba.js" crossorigin="anonymous"></script>
 </head>
@@ -45,7 +27,6 @@
             <div class="logo">BeauteM</div>
             <ul class="menu-area">
                 <li><a href="profil.php">Mon profil</a></li>
-                <li><a href="form.php">Connexion/Inscription </a></li>
                 <li><a href="panier.php">Mon panier </a></li>
             </ul>
         </div>
@@ -54,7 +35,7 @@
             <h2> Envie de connaitre les meilleurs produits chez BeauteM ? </h2>
             <h3> Achetez chez nous !</h3>
             <p>C'est pour cela que nous avons mis ce site à votre disposition .</p>
-            <a href="achat.php">ACHETEZ</a>
+            
     </header>
 
     <div class="site-section">

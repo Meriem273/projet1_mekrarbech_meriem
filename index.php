@@ -1,7 +1,3 @@
-
-<?php
-include './fonctions.php';
-?>
 <html>
 
 <head>
@@ -16,9 +12,6 @@ include './fonctions.php';
         <div class="nav-area">
             <div class="logo">BeauteM</div>
             <ul class="menu-area">
-                <li><a href="profil.php">Mon profil</a></li>
-                <li><a href="form.php">Connexion/Inscription </a></li>
-                <li><a href="panier.php">Mon panier </a></li>
             </ul>
         </div>
 

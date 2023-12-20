@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
-
 
 //fonction de connexion a la DB
 function connexionDB()
@@ -12,7 +7,7 @@ function connexionDB()
     $dbuser = "root";
     $dbpassword = "";
     $dbname = "ecom1_projet";
-$conn = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname);
+    $conn = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname);
     if (!$conn) {
         die("Erreur de connexion => " . mysqli_connect_error());
     }
@@ -21,60 +16,96 @@ $conn = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname);
 
 
 //fonction d'authentification de l'utilisateur
-function authentification($email, $mot_de_passe)
+function authentification($user_name, $password)
 {
     $conn = connexionDB();
-    $sql = "SELECT * FROM  user wHERE email =?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $utilisateur = $stmt->get_result();
+    
+    $sql = "SELECT * FROM `user` WHERE `user_name` = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, 's', $user_name);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
-    if ($utilisateur->num_rows >= 1) {
-        $utilisateur = $utilisateur->fetch_assoc();
-        if (password_verify($mot_de_passe, $utilisateur['pwd'])) {
-            $_SESSION['user'] = $utilisateur['id'];
-            $_SESSION['user_id'] = $utilisateur['id'];
-            $_SESSION['user_name'] = $utilisateur['nom'];
-            $_SESSION['email'] = $utilisateur['email'];
-            $_SESSION['role_id'] = $utilisateur['role_id'];
-            header('Location: ./index.php');
-        } else {
-            echo "Email ou mot de passe incorrect.";
-        }
-    } else {
-        echo "Utilisateur introuvable";
-    }
-}
-
-//fonction d'enregistrement d'un utilisateur
-function register($nom, $email, $mot_de_passe)
-{
-    $mot_de_passe = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-    $conn = connexionDB();
-    $sql = "INSERT INTO user(nom,email,mot_de_passe,roleU) VALUES (?,?,?,?)";
-    $user = "Client";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $nom, $email, $mot_de_passe, $user);
-    $result = $stmt->execute();
     if ($result) {
-        header('Location: ./connexion.php');
-    } else {
-        echo "Erreur";
+        $user = mysqli_fetch_assoc($result);
+
+        // Checker si le password est le meme
+        if ($user && password_verify($password, $user['pwd'])) {
+            // start session et enregistrer user id et le role 
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_role'] = $user['role_id'];
+
+            if ($user['role_id'] == 1) { // Admin
+                header("Location: ../admin/acceuilAdmin.php");
+            } else {
+                header("Location: produits.php");
+            }
+            exit();
+        } else {
+            header("Location: form.php");
+            exit();
+        }
     }
 }
+function register($user_name, $email, $pwd,$street_name, $street_nb, $city, $province, $zip_code, $country)
+{
+    $conn = connexionDB(); 
+    
+    $user_name = $_POST['user_name'];
+	$email = $_POST['email'];
+	$pwd = $_POST['pwd'];
+	$street_name = $_POST['street_name'];
+	$street_nb = $_POST['street_nb'];
+	$city = $_POST['city'];
+	$province = $_POST['province'];
+	$zip_code = $_POST['zip_code'];
+	$country = $_POST['country'];
+
+    $hashed_password = password_hash($pwd, PASSWORD_DEFAULT);
+
+    // Insertion dans la table user les infos entrées par le user
+    $sql_user = "INSERT INTO `user` (`user_name`, `email`, `pwd`, `role_id`) VALUES ('$user_name', '$email', '$hashed_password', (SELECT `id` FROM `role` WHERE `name` = 'client'))";
+
+    if (mysqli_query($conn, $sql_user)) {
+        // Obtenir id du user
+        $user_id = mysqli_insert_id($conn);
+
+        // Insertion dans la table address
+        $sql_address = "INSERT INTO `address` (`street_name`, `street_nb`, `city`, `province`, `zip_code`, `country`)
+                        VALUES ('$street_name', '$street_nb', '$city', '$province', '$zip_code', '$country')";
+
+        if (mysqli_query($conn, $sql_address)) {
+            
+            $address_id = mysqli_insert_id($conn);
+
+            // updating la table user avec l id 
+            $sql_update_user = "UPDATE `user` SET `billing_address_id` = $address_id, `shipping_address_id` = $address_id
+                                WHERE `id` = $user_id";
+
+            if (mysqli_query($conn, $sql_update_user)) {
+                header("Location: profil.php");
+            } else {
+                echo "Error" . mysqli_error($conn);
+            }
+        } else {
+            echo "Error" . mysqli_error($conn);
+        }
+    } 
+} 
+
+
+
 
 //fonction qui modifie le mot de passe
 function UpdatePassword($id, $mot_de_passe)
 {
-    $mot_de_passe = password_hash($mot_de_passe, PASSWORD_DEFAULT);
     $conn = connexionDB();
-    $sql = "UPDATE user SET mot_de_passe=? WHERE id=?";
+    $sql = "UPDATE user SET pwd=? WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("si", $mot_de_passe, $id);
     $result = $stmt->execute();
     if ($result) {
-        header('Location: ./myProfile.php');
+        header('Location: profil.php');
     } else {
         echo "Erreur";
     }
@@ -153,26 +184,11 @@ function addProduct($name, $price, $quantity){
 }
 
 
-//fonction qui recupere tous les produits
-function getAllProducts()
-{
-    $conn = connexionDB();
-    $sql = "SELECT p.id, p.nom,p.item_description,p.prix,p.taille,p.couleur,p.quantite, i.chemin FROM product p" ;
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $resultats = $stmt->get_result();
-    $products = array();
-    foreach ($resultats as $product) {
-        $products[] = $product;
-    }
-    return $products;
-}
-
 //fonction qui recupere un produit par son id
 function getProductById($id)
 {
     $conn = connexionDB();
-    $sql = "SELECT p.id, p.nom,p.item_description,p.prix,p.taille,p.couleur,p.quantite, i.chemin FROM product p";
+    $sql = "SELECT id, name , quantity , price , description FROM product ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
@@ -186,10 +202,8 @@ function getProductById($id)
 function deleteProductById($id)
 {
     $conn = connexionDB();
-
     $product = getProductById($id);
     if ($product) {
-
         $sql = 'DELETE FROM product where id = ?';
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $id);
@@ -205,7 +219,7 @@ function deleteProductById($id)
 
 
 //fonction qui rajoute une commande
-function addCommand($total, $id_utilisateur)
+function addCommand($total)
 {
     $conn = connexionDB();
     $sql = "INSERT INTO user_order(ref,total,date,user_id) values(?,?,?,?)";
