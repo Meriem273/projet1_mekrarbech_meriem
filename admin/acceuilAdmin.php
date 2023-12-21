@@ -1,17 +1,12 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: form.php");
-    exit();
-}
-
 //recuperer le role
 $user_role = $_SESSION['user_role'];
 
 // si ce n'est pas un admin le rediriger 
 if ($user_role != 1) {
-    header("Location: ../../index.php");
+    header("Location: ../index.php");
     exit();
 }
 ?>

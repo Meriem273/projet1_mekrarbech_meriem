@@ -1,22 +1,22 @@
 <?php 
+include './fonctions.php';
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['update'])){
-
     $conn=connexionDB();
-
+    //recuperer l'id
     $user_id = $_SESSION['user_id'];
-
+    //recuperer les champs entrés par le user pour modifier son profil
     $user_name = $_POST['user_name'];
     $email = $_POST['email'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
-
+    //verifier si tout a ete correctement entrés
     if (empty($user_name) || empty($email) || empty($fname) || empty($lname)) {
         echo "Faites entrer toutes les informations";
         exit();
     }
-
+    //update tout ça dans la bdd
     $sql = "UPDATE `user` SET `user_name` = '$user_name', `email` = '$email', `fname` = '$fname', `lname` = '$lname' WHERE `id` = $user_id";
 
     if (mysqli_query($conn, $sql)) {
@@ -26,9 +26,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 }
+
+if (isset($_POST['enregistrer'])) {
+    //recuperer ce que le user a fait entrer
+    $password = $_POST['pwdNew'];
+    if (!empty($password)) {
+        UpdatePassword($user_id, $password);  //utiliser une fonction pour changer le password
+    } else {
+        header("Location: profil.php");
+        exit();
+    }
+}
 }
 
-mysqli_close($conn);
 ?>
 
 <html>
@@ -60,12 +70,36 @@ mysqli_close($conn);
                         <input type="text" class="input-box" placeholder="first name" name="fname" required>
                         <input type="text" class="input-box" placeholder="last name" name="lname" required>
 						<button type="submit" class="submit-btn" name="update">Enregistrer</button>
-
 					</form>
+                    <button type="button" class="btn" onclick="openINSCRIPTION()">Changer mot de passe</button>
 				</div>
-            </div>
-        </div>
-    </div>
+
+                <div class="card-back">
+					<h2> Changer mot de passe </h2>
+					<form action="" method="post">
+                        <input type="password" class="input-box" placeholder="nouveau mot de passe" name="pwdNew" required>
+						<button type="submit" class="submit-btn" name="enregistrer">Enregistrer</button>
+					</form>
+					<button type="button" class="btn" onclick="openCONNEXION()">Afficher profil</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		var card = document.getElementById("card");
+
+		function openINSCRIPTION() {
+			card.style.transform = "rotateY(-180deg)";
+		}
+
+		function openCONNEXION() {
+			card.style.transform = "rotateY(0deg)";
+		}
+	</script>
+
     <footer>
 		<div class="main-content">
 			<div class="left box">

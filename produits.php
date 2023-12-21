@@ -1,11 +1,12 @@
 <?php
+include './fonctions.php';
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['save'])) {
         $orderId = $_POST['id'];
         $ref = $_POST['ref'];
         $date = $_POST['date'];
-        }
+    }
 }
 
 ?>

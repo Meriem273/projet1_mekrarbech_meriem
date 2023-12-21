@@ -1,11 +1,13 @@
 <?php
+include './fonctions.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['add'])) {
+        //recuperer les champs
         $name = $_POST['name'];
         $quantity = $_POST['quantity'];
         $price = $_POST['price'];
         $description = $_POST['description'];
-        $result = addProduct($name, $quantity, $price, $description);
+        $result = addProduct($name, $quantity, $price, $description);  //appel de la fonction addProduct
     }
 }
 ?>
